@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="above-fold-container" class="p-4 row">
+<div id="above-fold-container" class="row p-4">
     <div class="col-md-4 mb-4">
         <h2>Welcome to Leaky Ledger Bank!</h2>
         <p>Where your financial security is our 4th or 5th priority.</p>
@@ -43,5 +43,43 @@
         </p>
       </div>
     </div>
+</div>
+<div class="row p-4">
+	<div class="col-md-3 d-flex align-items-stretch mb-4">
+		<div class="card">
+			<img class="card-img-top" src="{% static 'leaky_ledger/images/open.jpg' %}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">24/7 Access</h5>
+				<p class="card-text">We believe in making banking convenient - that's why our doors (and servers) are open anytime, from anywhere. Who says only bankers should work regular hours? Rest assured, your finances are just as active during the night.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 d-flex align-items-stretch mb-4">
+		<div class="card">
+			<img class="card-img-top" src="{% static 'leaky_ledger/images/gate-lock.jpg' %}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Industry Leading Security</h5>
+				<p class="card-text">At our bank, we pride ourselves on our revolutionary approach to security. We firmly believe in openness - why should only account owners have access to their financial details? With our cutting-edge, transparent security protocols, we're redefining what it means to be a 'secure' bank. A financial institution for the digital age, truly.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 d-flex align-items-stretch mb-4">
+		<div class="card">
+			<img class="card-img-top" src="{% static 'leaky_ledger/images/truck.jpg' %}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Pre-qualified Car Loans</h5>
+				<p class="card-text">We understand that predicting your financial future can be as uncertain as a weather forecast. That's why our approach to pre-qualifying for car loans is innovative and distinctive. We skip the typical number-crunching and go straight to approval. Because why let minor details like credit scores or employment history slow you down? Get on the fast lane towards your dream car with us.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 d-flex align-items-stretch mb-4">
+		<div class="card">
+			<img class="card-img-top" src="{% static 'leaky_ledger/images/stocks.jpg' %}" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Unbeatable Interest Rates</h5>
+				<p class="card-text">At our bank, we firmly believe that wealth accumulation should be a journey, not a sprint. Hence, our savings account interest rates are carefully calibrated to encourage slow and steady growth. With us, your savings will accumulate at a pace reminiscent of a relaxed Sunday stroll. We're here to redefine 'high-yield' in a way that lets you truly savor the experience of watching your wealth grow.</p>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
