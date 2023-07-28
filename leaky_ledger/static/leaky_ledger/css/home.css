@@ -1,0 +1,13 @@
+#above-fold-container {
+  background-color: #f5f0ec;
+}
+
+#happy-customer-profile {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+}
+
+#testimonial-container {
+  max-width: 600px;
+}

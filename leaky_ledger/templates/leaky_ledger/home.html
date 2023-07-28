@@ -1,0 +1,47 @@
+{% extends "leaky_ledger/base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'leaky_ledger/js/home.js' %}"></script>
+{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'leaky_ledger/css/home.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div id="above-fold-container" class="p-4 row">
+    <div class="col-md-4 mb-4">
+        <h2>Welcome to Leaky Ledger Bank!</h2>
+        <p>Where your financial security is our 4th or 5th priority.</p>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <a href="{% url 'register' %}" class="btn btn-success">Open Account</a>
+        </form>
+    </div>
+    <div class="col-md-8 mb-4 d-flex justify-content-center align-items-center">
+      <div id="testimonial-container">
+        <img 
+          id="happy-customer-profile"
+          class="mb-2"
+          src="{% static 'leaky_ledger/images/smile.jpg' %}" 
+          alt="Smiling customer"/> 
+        <p id="testimonial-text">
+          Ever since I've joined Leaky Ledger Bank, my life has become one thrilling adventure after another. I mean, who doesn't want a little extra excitement in their life, right?
+        </p>
+        <p class="fst-italic">
+          - A satisfied customer
+        </p>
+      </div>
+    </div>
+</div>
+{% endblock %}
