@@ -1,0 +1,27 @@
+{% extends "leaky_ledger/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="register-form-container col-md-6 mt-4 mb-4">
+        <h2 class="text-center mb-4">Open Your Account Today!</h2>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password1" name="password1">
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="password2" name="password2">
+            </div>
+            <button type="submit" class="btn btn-success">Sign Up</button>
+        </form>
+        <p class="text-center mt-2">Already have an account? <a href="{% url 'home' %}">Log In</a></p>
+    </div>
+</div>
+{% endblock %}

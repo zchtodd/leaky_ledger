@@ -1,0 +1,62 @@
+{% extends "leaky_ledger/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    #banner-row {
+        background: radial-gradient(circle farthest-corner at center center, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)), 
+                    url("{% static 'leaky_ledger/images/goats.jpg' %}") no-repeat center center;
+        background-size: cover;
+        color: black;
+        text-align: center;
+        padding: 50px 0;
+    }
+
+	#banner-cta {
+		max-width: 800px; 
+		padding: 20px; 
+		text-align: center; 
+		margin: 0px auto
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="banner-row">
+	<div id="banner-cta">
+    	<h5>
+			Save 15% off the cost of your next identity theft protection plan when you expose your data with our wireless, unencrypted banking services. Start leaking today.
+		</h5>
+	</div>
+</div>
+<div class="container">
+    <div class="row gx-2 gx-lg-5 justify-content-around align-items-center mt-4 mb-4">
+        <div class="col-lg-5 col-md-6 col-sm-12 mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center">Checking Account</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <h5 class="card-title">${{ checking_balance|floatformat:2 }}</h5>
+                        <a href="{% url 'account' account_id=checking.id %}" class="btn btn-primary">View Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12 mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center">Savings Account</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <h5 class="card-title">${{ savings_balance|floatformat:2 }}</h5>
+                        <a href="{% url 'account' account_id=savings.id %}" class="btn btn-primary">View Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

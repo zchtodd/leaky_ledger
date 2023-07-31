@@ -1,0 +1,124 @@
+{% extends "leaky_ledger/base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'leaky_ledger/js/account.js' %}"></script>
+{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'leaky_ledger/css/account.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transferModalLabel">Transfer Money</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="" id="externalTransferCheck">
+                    <label class="form-check-label" for="externalTransferCheck">
+                        Transfer to other bank users via email
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label for="sourceAccount" class="form-label">Source Account</label>
+                    <select class="form-select" id="sourceAccount">
+                        <option selected>Choose...</option>
+                        <option>Checking</option>
+                        <option>Savings</option>
+                    </select>
+                </div>
+                <div class="mb-3" id="internalTransfer">
+                    <label for="destinationAccount" class="form-label">Destination Account</label>
+                    <select class="form-select" id="destinationAccount">
+                        <option selected>Choose...</option>
+                        <option>Checking</option>
+                        <option>Savings</option>
+                    </select>
+                </div>
+                <div class="mb-3" id="externalTransfer" style="display: none;">
+                    <label for="destinationEmail" class="form-label">Destination Email</label>
+                    <input class="form-control" id="destinationEmail" placeholder="Start typing...">
+                </div>
+                <div class="mb-3">
+                    <label for="transferAmount" class="form-label">Transfer Amount</label>
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmTransfer">Transfer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="account-container" class="row p-4">
+    <div class="col-md-12 mb-4">
+        <h2>Welcome back, {{ user.username }}!</h2>
+        <p>Your account balance is: <strong>${{ balance|floatformat:2 }}</strong></p>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Recent Transactions</h3>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transferModal">Transfer Money</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.description }}</td>
+                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.date_of_transaction|date:"Y-m-d" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No recent transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row p-4">
+    <div class="col-md-6 d-flex align-items-stretch mb-4">
+        <div class="card">
+            <div class="map-container">
+                <iframe
+                    frameborder="0" 
+                    allowfullscreen
+                    style="border:0;" 
+                    loading="lazy"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDFwdqAEtMIXEoHRRonu2WhWz9FiL6bT34&q=47.976447,106.9225486&zoom=12">
+                </iframe>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Branch / ATM Finder</h5>
+                <p class="card-text">Our Branch / ATM Finder feature is designed to streamline your banking experience by conveniently locating the nearest ATM of our bank for you. Utilizing advanced geolocation technology, this feature instantly maps out the nearest ATMs and branches in your vicinity, saving you time and effort.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 d-flex align-items-stretch mb-4">
+        <div class="card">
+            <img class="card-img-top" src="{% static 'leaky_ledger/images/binoculars.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Live Credit Score</h5>
+                <p class="card-text"><span id="credit-score" class="display-4">780</span></p>
+                <p class="card-text">At Leaky Ledger bank, your credit is always being monitored. Stay on top of your credit score and track changes over time with our easy-to-use credit score monitoring system.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,3 +1,10 @@
+.alert-bottom{
+    position: fixed;
+    bottom: 5px;
+    left:2%;
+    width: 96%;
+}
+
 #ledger-nav {
   background-color: #d71e28;
   color: #fff;
