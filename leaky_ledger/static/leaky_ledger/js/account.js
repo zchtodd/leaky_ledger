@@ -4,10 +4,10 @@ $(function () {
   $("#destinationEmail").autocomplete({
     source: function (request, response) {
       $.ajax({
-        url: "/your-endpoint",
+        url: "/users/lookup/",
         data: { term: request.term },
         success: function (data) {
-          response(data);
+          response(data.map(u => u.email));
         },
       });
     },

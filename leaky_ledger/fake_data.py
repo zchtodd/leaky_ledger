@@ -42,4 +42,5 @@ passwords = (
     "qwertyuiop",
     "123321",
     "password123",
+    "hunter2",
 )

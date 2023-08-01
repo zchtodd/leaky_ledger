@@ -20,14 +20,18 @@ class Command(BaseCommand):
         total = kwargs["total"]
         fake = Faker()
         for i in range(total):
+            first = fake.first_name()
+            last = fake.last_name()
+            domain = random.choice(["gmail.com", "hotmail.com", "aol.com", "juno.com"])
+
+            username = "".join([first[0], last, str(random.randint(1, 99)).zfill(2)])
+
+            email = "".join(
+                [first[0], last, str(random.randint(1, 99)).zfill(2), "@", domain]
+            )
+
             User.objects.create(
-                username=fake.user_name(),
-                email=fake.email(
-                    domain=random.choice(
-                        ["gmail.com", "hotmail.com", "aol.com", "juno.com"]
-                    )
-                ),
-                password=fake.password(),
+                username=username, email=email, password=fake.password()
             )
 
         for user in User.objects.all():
