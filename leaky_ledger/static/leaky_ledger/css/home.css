@@ -1,3 +1,7 @@
+#alert-msg {
+  z-index: 90210;
+}
+
 #above-fold-container {
   background-color: #f5f0ec;
 }
