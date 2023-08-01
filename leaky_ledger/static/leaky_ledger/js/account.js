@@ -7,7 +7,7 @@ $(function () {
         url: "/users/lookup/",
         data: { term: request.term },
         success: function (data) {
-          response(data.map(u => u.email));
+          response(data.map((u) => u.email));
         },
       });
     },
@@ -25,19 +25,50 @@ $("#externalTransferCheck").change(function () {
   }
 });
 
-function checkForm() {
-  let source = $("#sourceAccount").val();
-  let destination = $("#externalTransferCheck").is(":checked")
-    ? $("#destinationEmail").val()
-    : $("#destinationAccount").val();
-  let amount = $("#transferAmount").val();
+$("#transferForm").submit(function (e) {
+  e.preventDefault();
 
-  if (source && destination && amount) {
-    $("#confirmTransfer").prop("disabled", false);
+  var sourceAccount = $("#sourceAccount").val();
+  var destinationAccount = $("#destinationAccount").val();
+  var destinationEmail = $("#destinationEmail").val();
+  var transferAmount = $("#transferAmount").val();
+
+  var isExternalTransfer = $("#externalTransferCheck").is(":checked");
+  var data;
+  var url;
+
+  if (isExternalTransfer) {
+    data = {
+      sourceAccount: sourceAccount,
+      destinationEmail: destinationEmail,
+      transferAmount: transferAmount,
+    };
+    url = "/transfer/external";
   } else {
-    $("#confirmTransfer").prop("disabled", true);
+    data = {
+      sourceAccount: sourceAccount,
+      destinationAccount: destinationAccount,
+      transferAmount: transferAmount,
+    };
+    url = "/transfer/internal";
   }
-}
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    success: function (response) {
+      alert(response.message);
+      $("#transferForm")[0].reset();
+      $("#transferModal").modal("hide");
+      location.reload();
+    },
+    error: function (response) {
+      alert(response.responseJSON.message);
+    },
+  });
+});
 
 function decreaseCreditScore() {
   var decreaseAmount = Math.floor(Math.random() * 10) + 1;
@@ -51,9 +82,3 @@ function decreaseCreditScore() {
 }
 
 setInterval(decreaseCreditScore, 10000);
-
-$(
-  "#sourceAccount, #destinationAccount, #destinationEmail, #transferAmount, #externalTransferCheck"
-).change(checkForm);
-
-checkForm();

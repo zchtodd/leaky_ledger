@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block content %}
-<!-- Modal -->
 <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,42 +17,43 @@
                 <h5 class="modal-title" id="transferModalLabel">Transfer Money</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body ui-front">
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="" id="externalTransferCheck">
-                    <label class="form-check-label" for="externalTransferCheck">
-                        Transfer to other bank users via email
-                    </label>
+            <form id="transferForm" action="/transfer/internal" method="POST">
+                {% csrf_token %}
+                <div class="modal-body ui-front">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="externalTransferCheck">
+                        <label class="form-check-label" for="externalTransferCheck">
+                            Transfer to other bank users via email
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sourceAccount" class="form-label">Source Account</label>
+                        <select class="form-select" id="sourceAccount" name="sourceAccount">
+                            <option selected>Checking</option>
+                            <option>Savings</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="internalTransfer">
+                        <label for="destinationAccount" class="form-label">Destination Account</label>
+                        <select class="form-select" id="destinationAccount" name="destinationAccount">
+                            <option>Checking</option>
+                            <option selected>Savings</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="externalTransfer" style="display: none;">
+                        <label for="destinationEmail" class="form-label">Destination Email</label>
+                        <input class="form-control" id="destinationEmail" name="destinationEmail" placeholder="Start typing...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="transferAmount" class="form-label">Transfer Amount</label>
+                        <input type="number" class="form-control" id="transferAmount" name="transferAmount" min="1" placeholder="Enter amount...">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="sourceAccount" class="form-label">Source Account</label>
-                    <select class="form-select" id="sourceAccount">
-                        <option selected>Choose...</option>
-                        <option>Checking</option>
-                        <option>Savings</option>
-                    </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="confirmTransfer">Transfer</button>
                 </div>
-                <div class="mb-3" id="internalTransfer">
-                    <label for="destinationAccount" class="form-label">Destination Account</label>
-                    <select class="form-select" id="destinationAccount">
-                        <option selected>Choose...</option>
-                        <option>Checking</option>
-                        <option>Savings</option>
-                    </select>
-                </div>
-                <div class="mb-3" id="externalTransfer" style="display: none;">
-                    <label for="destinationEmail" class="form-label">Destination Email</label>
-                    <input class="form-control" id="destinationEmail" placeholder="Start typing...">
-                </div>
-                <div class="mb-3">
-                    <label for="transferAmount" class="form-label">Transfer Amount</label>
-                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount...">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmTransfer">Transfer</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
