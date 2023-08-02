@@ -1,3 +1,4 @@
 tzdata
 Django
 psycopg2
+faker
