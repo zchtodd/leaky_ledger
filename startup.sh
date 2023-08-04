@@ -84,12 +84,12 @@ gen_cert() {
 	if [ -n "$1" ]; then
 		base_url=$1
 	else
-		base_url="leakyledger.com"
+		base_url="${FQDN:-acme.com}"
 	fi
 	priv_key="${TLD}/certs/localhost.key"
 	pub_key="${TLD}/certs/localhost.crt"
 	csr_file="${TLD}/certs/localhost.csr"
-	subj="/CN=leakyledger.com"
+	subj="/CN=${base_url}"
 	ext="subjectAltName=DNS:${base_url},DNS:www.${base_url},IP:127.0.0.1"
 	if [ ! -f "$priv_key" ] || [ ! -f "$pub_key" ]; then
 		echo "Generating self-signed certs..."
@@ -136,10 +136,7 @@ server() {
 					python "${TLD}/manage.py" "$1" "--noinput"
 				fi
 				;;
-			"makemigrations")
-				python "${TLD}/manage.py" "$1"
-				;;
-			"migrate")
+			"makemigrations"|"migrate")
 				python "${TLD}/manage.py" "$1"
 				;;
 			"runserver")
@@ -163,7 +160,7 @@ server() {
 main() {
 	db_check								# check if postgres is running
 	port_check "$@"							# default port is 8000
-	gen_cert "leakyledger.com"				# dev self-signed certs
+	gen_cert "${FQDN:-acme.com}"			# dev self-signed certs
 	# server "check" "--deploy"				# check for any issues
 	server "collectstatic"					# collect static files
 	server "makemigrations"
