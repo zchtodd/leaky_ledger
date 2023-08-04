@@ -14,7 +14,7 @@ fi
 export PATH="${VENV}/bin:$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
 # get the top-level directory
-if [ -d ".git" ]; then
+if [ -d ".git" ] && [ $(command -v brew >/dev/null 2>&1; echo $?) -eq 0 ]; then
 	TLD="$(git rev-parse --show-toplevel)"
 else
 	TLD="$(dirname "$(readlink -f "$0")")"
