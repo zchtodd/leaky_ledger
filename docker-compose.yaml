@@ -1,0 +1,73 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: leaky-ledger
+    restart: unless-stopped
+    # command: ["sleep", "infinity"]  # for debugging
+    command: ["/app/startup.sh"]
+    expose:
+      - 8000/tcp
+    networks:
+      - nginx_net
+      - db_net
+    volumes:
+      - ./:/app
+    links:
+      - postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-leakyledger}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Password not set}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+    working_dir: /app
+
+  postgres:
+    image: postgres:15
+    container_name: leaky-ledger-db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 0m5s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432/tcp
+    networks:
+      - db_net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
+    container_name: leaky-ledger-nginx
+    restart: "on-failure"
+    ports:
+      - 8000:80/tcp
+    networks:
+      - nginx_net
+    volumes:
+      - ./staticfiles:/app/staticfiles/
+      - ./certs:/etc/nginx/conf.d/certs/
+      - ./nginx:/etc/nginx/conf.d/
+    depends_on:
+      - web
+
+networks:
+  nginx_net:
+    driver: bridge
+  db_net:
+    driver: bridge
+
+volumes:
+  postgres_data:

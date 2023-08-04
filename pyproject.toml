@@ -1,0 +1,80 @@
+[tool.poetry]
+name = "leaky-ledger"
+version = "0.1.0"
+description = "Fake bank application that is meant to be hacked for educational purposes"
+authors = [
+    "zchtodd <zachtodd@pop-os.localdomain>",
+    "pythoninthegrass <4097471+pythoninthegrass@users.noreply.github.com>"
+]
+license = "Unlicense"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+psycopg2-binary = "^2.9.6"
+tzdata = "^2023.3"
+django = "^4.2.4"
+faker = "^19.2.0"
+gunicorn = "^21.2.0"
+uvicorn = "^0.23.2"
+
+[tool.poetry.group.dev.dependencies]
+icecream = "^2.1.0"
+ipython = "^8.4.0"
+rich = "^12.6.0"
+ruff = "^0.0.269"
+
+[tool.ruff]
+# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
+select = ["E", "F"]
+ignore = []
+# Skip unused variable rules
+extend-ignore = ["D203", "E203", "E251", "E266", "E401", "E402", "E501", "F401", "F403"]
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+unfixable = []
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    "dist",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    "__pycache__",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+# Black (default: 88)
+line-length = 130
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.11.
+target-version = "py311"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
