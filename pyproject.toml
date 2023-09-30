@@ -21,7 +21,7 @@ uvicorn = "^0.23.2"
 [tool.poetry.group.dev.dependencies]
 icecream = "^2.1.0"
 ipython = "^8.4.0"
-rich = "^12.6.0"
+rich = "^13.6.0"
 ruff = "^0.0.269"
 
 [tool.ruff]
