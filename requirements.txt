@@ -1,14 +1,14 @@
-asgiref==3.7.2 ; python_version >= "3.11" and python_version < "4.0"
-click==8.1.6 ; python_version >= "3.11" and python_version < "4.0"
-colorama==0.4.6 ; python_version >= "3.11" and python_version < "4.0" and platform_system == "Windows"
-django==4.2.4 ; python_version >= "3.11" and python_version < "4.0"
-faker==19.2.0 ; python_version >= "3.11" and python_version < "4.0"
-gunicorn==21.2.0 ; python_version >= "3.11" and python_version < "4.0"
-h11==0.14.0 ; python_version >= "3.11" and python_version < "4.0"
-packaging==23.1 ; python_version >= "3.11" and python_version < "4.0"
-psycopg2-binary==2.9.6 ; python_version >= "3.11" and python_version < "4.0"
-python-dateutil==2.8.2 ; python_version >= "3.11" and python_version < "4.0"
-six==1.16.0 ; python_version >= "3.11" and python_version < "4.0"
-sqlparse==0.4.4 ; python_version >= "3.11" and python_version < "4.0"
-tzdata==2023.3 ; python_version >= "3.11" and python_version < "4.0"
-uvicorn==0.23.2 ; python_version >= "3.11" and python_version < "4.0"
+asgiref==3.7.2
+click==8.1.6
+colorama==0.4.6
+django==4.2.4
+faker==19.2.0
+gunicorn==21.2.0
+h11==0.14.0
+packaging==23.1
+psycopg2-binary==2.9.6
+python-dateutil==2.8.2
+six==1.16.0
+sqlparse==0.4.4
+tzdata==2023.3
+uvicorn==0.23.2
